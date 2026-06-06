@@ -1,46 +1,70 @@
 import React, { useState } from 'react';
-import './App.css'; 
-import initialData from './data.json'; 
+import './App.css';
+import initialData from './data.json';
 import TodoList from './components/TodoList';
 import TodoForm from './components/TodoForm';
 
 function App() {
     const [todos, setTodos] = useState(initialData);
+    
+    // State ĐẶC BIỆT: Lưu trữ công việc ĐANG ĐƯỢC SỬA (nếu bằng null nghĩa là đang đi Thêm mới)
+    const [editingTodo, setEditingTodo] = useState(null);
 
-    // Logic 1: THÊM TASK (Đã làm ở bước trước)
+    // 1. Thêm
     const handleAddTodo = (newTodo) => {
         setTodos([...todos, newTodo]);
     };
 
-    // Logic 2: XÓA TASK
+    // 2. Xóa
     const handleDeleteTodo = (id) => {
-        // Lọc và giữ lại những task có id KHÁC với id bị xóa
         const newTodos = todos.filter(todo => todo.id !== id);
         setTodos(newTodos);
     };
 
-    // Logic 3: ĐỔI TRẠNG THÁI (To Do <-> Done)
+    // 3. Đổi trạng thái
     const handleToggleStatus = (id) => {
-        // Duyệt qua mảng, tìm đúng id thì đảo ngược giá trị completed (true thành false và ngược lại)
-        const updatedTodos = todos.map(todo => {
-            if (todo.id === id) {
-                return { ...todo, completed: !todo.completed };
-            }
-            return todo;
-        });
+        const updatedTodos = todos.map(todo => 
+            todo.id === id ? { ...todo, completed: !todo.completed } : todo
+        );
         setTodos(updatedTodos);
+    };
+
+    // 4A. Chuẩn bị SỬA (Nhận thông tin task bị click và đưa vào state)
+    const handleEditTodo = (todo) => {
+        setEditingTodo(todo);
+    };
+
+    // 4B. Lưu cập nhật (Lưu đè dữ liệu mới vào mảng)
+    const handleUpdateTodo = (updatedTodo) => {
+        const updatedList = todos.map(todo => 
+            todo.id === updatedTodo.id ? updatedTodo : todo
+        );
+        setTodos(updatedList);
+        setEditingTodo(null); // Sửa xong thì xóa trạng thái sửa, quay về mode Thêm mới
+    };
+
+    // 4C. Hủy Sửa
+    const handleCancelEdit = () => {
+        setEditingTodo(null);
     };
 
     return (
         <div className="container py-5" style={{ maxWidth: '900px' }}>
-            {/* Truyền cả mảng dữ liệu VÀ 2 hàm xử lý xuống cho TodoList */}
+            {/* Truyền thêm hàm onEdit xuống List */}
             <TodoList 
                 todos={todos} 
                 onDelete={handleDeleteTodo} 
                 onToggle={handleToggleStatus} 
+                onEdit={handleEditTodo} 
             />
             
-            <TodoForm onAddTodo={handleAddTodo} />
+            {/* Truyền các props cần thiết cho Form để nó biết lúc nào Thêm, lúc nào Sửa */}
+            <TodoForm 
+                onAddTodo={handleAddTodo} 
+                onUpdateTodo={handleUpdateTodo}
+                editingTodo={editingTodo}
+                onCancelEdit={handleCancelEdit}
+            />
         </div>
     );
 }
