@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from 'react'; // Nhớ import useEffect
+import React, { useState, useEffect } from 'react'; 
 
-function TodoForm({ onAddTodo, onUpdateTodo, editingTodo, onCancelEdit }) {
+// Sửa lại tên prop nhận vào: đổi onCancelEdit thành onCloseForm
+function TodoForm({ onAddTodo, onUpdateTodo, editingTodo, onCloseForm }) {
     const [inputValue, setInputValue] = useState('');
     const [priority, setPriority] = useState('Low');
     const [error, setError] = useState('');
 
-    // USE EFFECT: Tự động chạy khi biến editingTodo thay đổi
     useEffect(() => {
         if (editingTodo) {
-            // Nếu có dữ liệu truyền vào -> Đổ dữ liệu lên Form
             setInputValue(editingTodo.task);
             setPriority(editingTodo.priority);
-            setError(''); // Xóa lỗi cũ
+            setError(''); 
         } else {
-            // Nếu null -> Trả Form về trống (chế độ Thêm mới)
             setInputValue('');
             setPriority('Low');
         }
@@ -34,15 +32,13 @@ function TodoForm({ onAddTodo, onUpdateTodo, editingTodo, onCancelEdit }) {
         }
 
         if (editingTodo) {
-            // NẾU ĐANG Ở CHẾ ĐỘ SỬA
             const updatedTodo = {
-                ...editingTodo, // Giữ nguyên ID và trạng thái completed cũ
-                task: trimmedValue, // Ghi đè tên mới
-                priority: priority  // Ghi đè mức độ mới
+                ...editingTodo, 
+                task: trimmedValue, 
+                priority: priority  
             };
             onUpdateTodo(updatedTodo);
         } else {
-            // NẾU ĐANG Ở CHẾ ĐỘ THÊM
             const newTodo = {
                 id: Date.now(),
                 task: trimmedValue,
@@ -51,7 +47,6 @@ function TodoForm({ onAddTodo, onUpdateTodo, editingTodo, onCancelEdit }) {
             };
             onAddTodo(newTodo);
             
-            // Thêm xong thì xóa rỗng Form
             setInputValue('');
             setPriority('Low');
         }
@@ -60,14 +55,13 @@ function TodoForm({ onAddTodo, onUpdateTodo, editingTodo, onCancelEdit }) {
 
     return (
         <div className="form-container p-4 border border-primary rounded bg-white position-relative">
-            {/* Nút X trên cùng góc phải: Bấm vào để hủy chế độ sửa */}
+            {/* Gắn onCloseForm vào nút X */}
             <i 
                 className="bi bi-x-lg position-absolute cursor-pointer" 
                 style={{ top: '15px', right: '20px', cursor: 'pointer' }}
-                onClick={onCancelEdit}
+                onClick={onCloseForm}
             ></i>
             
-            {/* Tiêu đề tự đổi chữ */}
             <h4 className="fw-bold mb-4" style={{ color: '#1a1e46' }}>
                 {editingTodo ? "Edit Task" : "Add Task"}
             </h4>
@@ -95,7 +89,6 @@ function TodoForm({ onAddTodo, onUpdateTodo, editingTodo, onCancelEdit }) {
                 </div>
 
                 <div className="text-end">
-                    {/* Nút Submit tự đổi chữ */}
                     <button type="submit" className="btn btn-secondary px-4 rounded-3">
                         {editingTodo ? "Update" : "Add"}
                     </button>

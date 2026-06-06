@@ -20,10 +20,19 @@ function App() {
     }, [todos]);
 
     const [editingTodo, setEditingTodo] = useState(null);
-
+    const [showForm, setShowForm] = useState(false);
+    const handleOpenAddForm = () => {
+        setEditingTodo(null); 
+        setShowForm(true);   
+    };
+    const handleCloseForm = () => {
+        setEditingTodo(null);
+        setShowForm(false);   // Tắt form
+    };
 
     const handleAddTodo = (newTodo) => {
         setTodos([...todos, newTodo]);
+        setShowForm(false);
     };
 
     const handleDeleteTodo = (id) => {
@@ -40,6 +49,7 @@ function App() {
 
     const handleEditTodo = (todo) => {
         setEditingTodo(todo);
+        setShowForm(true);
     };
 
     const handleUpdateTodo = (updatedTodo) => {
@@ -48,6 +58,7 @@ function App() {
         );
         setTodos(updatedList);
         setEditingTodo(null); 
+        setShowForm(false); 
     };
 
     const handleCancelEdit = () => {
@@ -60,14 +71,15 @@ function App() {
                 todos={todos} 
                 onDelete={handleDeleteTodo} 
                 onToggle={handleToggleStatus} 
-                onEdit={handleEditTodo} 
+                onEdit={handleEditTodo}
+                onOpenForm={handleOpenAddForm}
             />
             
             <TodoForm 
                 onAddTodo={handleAddTodo} 
                 onUpdateTodo={handleUpdateTodo}
                 editingTodo={editingTodo}
-                onCancelEdit={handleCancelEdit}
+                onCloseForm={handleCloseForm}
             />
         </div>
     );
