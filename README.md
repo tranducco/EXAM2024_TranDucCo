@@ -45,3 +45,13 @@ src/
 ├── App.jsx            # Component Cha: Nắm giữ State và xử lý logic chính
 ├── App.css            # Custom CSS
 └── data.json          # Dữ liệu khởi tạo mặc định
+```
+## Hướng dẫn cài đặt và chạy dự án (How to run)
+1. Clone dự án về máy:
+    git clone https://github.com/tranducco/EXAM2024_TranDucCo
+2. Chuyển đến thư mục dự án:
+    cd .\EXAM2024_TranDucCo\todo-app
+3. Cài đặt các thư viện (Dependencies):
+    npm install
+4. Khởi chạy dự án trên môi trường Dev:
+    npm run dev
