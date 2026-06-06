@@ -1,8 +1,5 @@
-// src/components/TodoItem.jsx
 import React from 'react';
-
-function TodoItem({ todo }) {
-    // Hàm phụ trợ để lấy CSS class màu sắc dựa trên priority
+function TodoItem({ todo, onDelete, onToggle }) { // Nhận thêm onDelete và onToggle
     const getPriorityClass = (priority) => {
         if (priority === 'High') return 'priority-high text-danger fw-bold';
         if (priority === 'Medium') return 'priority-medium text-warning fw-bold';
@@ -27,13 +24,24 @@ function TodoItem({ todo }) {
                 </span>
             </div>
             
+            {/* GẮN SỰ KIỆN ĐỔI TRẠNG THÁI VÀO ICON HÌNH TRÒN */}
             <div className="col-1 text-center" style={{ fontSize: '22px' }}>
-                <i className={todo.completed ? "bi bi-check-circle text-primary" : "bi bi-circle text-muted"}></i>
+                <i 
+                    className={todo.completed ? "bi bi-check-circle text-primary cursor-pointer" : "bi bi-circle text-muted cursor-pointer"}
+                    onClick={() => onToggle(todo.id)}
+                    style={{ cursor: 'pointer' }}
+                ></i>
             </div>
             
             <div className="col-2 text-end">
-                <i className="bi bi-pencil-square ms-2 cursor-pointer"></i>
-                <i className="bi bi-trash text-danger ms-2 cursor-pointer"></i>
+                <i className="bi bi-pencil-square ms-2" style={{ cursor: 'pointer' }}></i>
+                
+                {/* GẮN SỰ KIỆN XÓA VÀO ICON THÙNG RÁC */}
+                <i 
+                    className="bi bi-trash text-danger ms-2" 
+                    onClick={() => onDelete(todo.id)}
+                    style={{ cursor: 'pointer' }}
+                ></i>
             </div>
         </div>
     );
