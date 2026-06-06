@@ -11,13 +11,13 @@ function TodoList(props) {
                 </button>
             </div>
 
-            {/* Bổ sung truyền hàm onDelete và onToggle vào TodoItem */}
             {props.todos.map(todo => (
                 <TodoItem 
                     key={todo.id} 
                     todo={todo} 
                     onDelete={props.onDelete} 
                     onToggle={props.onToggle} 
+                    onEdit={props.onEdit} 
                 />
             ))}
         </div>

@@ -1,5 +1,6 @@
 import React from 'react';
-function TodoItem({ todo, onDelete, onToggle }) { // Nhận thêm onDelete và onToggle
+
+function TodoItem({ todo, onDelete, onToggle, onEdit }) { // Nhận thêm onEdit
     const getPriorityClass = (priority) => {
         if (priority === 'High') return 'priority-high text-danger fw-bold';
         if (priority === 'Medium') return 'priority-medium text-warning fw-bold';
@@ -24,7 +25,6 @@ function TodoItem({ todo, onDelete, onToggle }) { // Nhận thêm onDelete và o
                 </span>
             </div>
             
-            {/* GẮN SỰ KIỆN ĐỔI TRẠNG THÁI VÀO ICON HÌNH TRÒN */}
             <div className="col-1 text-center" style={{ fontSize: '22px' }}>
                 <i 
                     className={todo.completed ? "bi bi-check-circle text-primary cursor-pointer" : "bi bi-circle text-muted cursor-pointer"}
@@ -34,9 +34,13 @@ function TodoItem({ todo, onDelete, onToggle }) { // Nhận thêm onDelete và o
             </div>
             
             <div className="col-2 text-end">
-                <i className="bi bi-pencil-square ms-2" style={{ cursor: 'pointer' }}></i>
+                {/* GẮN SỰ KIỆN SỬA VÀO ICON CÂY BÚT */}
+                <i 
+                    className="bi bi-pencil-square ms-2" 
+                    onClick={() => onEdit(todo)}
+                    style={{ cursor: 'pointer' }}
+                ></i>
                 
-                {/* GẮN SỰ KIỆN XÓA VÀO ICON THÙNG RÁC */}
                 <i 
                     className="bi bi-trash text-danger ms-2" 
                     onClick={() => onDelete(todo.id)}
