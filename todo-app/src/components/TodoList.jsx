@@ -1,4 +1,3 @@
-// src/components/TodoList.jsx
 import React from 'react';
 import TodoItem from './TodoItem';
 
@@ -7,15 +6,19 @@ function TodoList(props) {
         <div className="task-container mb-4 p-4 bg-light border rounded">
             <div className="d-flex justify-content-between align-items-center mb-4">
                 <h2 className="mb-0 fw-bold" style={{ color: '#1a1e46' }}>Task List</h2>
-                {/* Nút Add Task ở đây chỉ mang tính hiển thị theo thiết kế, logic Add nằm ở Form */}
                 <button className="btn text-white" style={{ backgroundColor: '#7b42ff', borderRadius: '10px' }}>
                     <i className="bi bi-plus-lg"></i> Add Task
                 </button>
             </div>
 
-            {/* Lặp qua danh sách todos từ props */}
+            {/* Bổ sung truyền hàm onDelete và onToggle vào TodoItem */}
             {props.todos.map(todo => (
-                <TodoItem key={todo.id} todo={todo} />
+                <TodoItem 
+                    key={todo.id} 
+                    todo={todo} 
+                    onDelete={props.onDelete} 
+                    onToggle={props.onToggle} 
+                />
             ))}
         </div>
     );
