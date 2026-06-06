@@ -1,0 +1,111 @@
+body {
+            background-color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            padding: 40px 0;
+        }
+
+        /* Tùy chỉnh Container của Task List */
+.task-container {
+            background-color: #f8f9ff; /* Màu nền hơi xanh tím nhẹ */
+            border: 1.5px solid #dce1ff;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+.main-title {
+            color: #1a1e46;
+            font-weight: 800;
+            font-size: 28px;
+        }
+
+.btn-add-task {
+            background-color: #4c00ff;
+            color: white;
+            border-radius: 10px;
+            font-weight: 600;
+            padding: 8px 20px;
+            border: none;
+        }
+
+.btn-add-task:hover { background-color: #5100ff; color: white; }
+
+        /* Tùy chỉnh từng Task Card */
+.task-card {
+            background: white;
+            border-radius: 24px; /* Bo góc tròn */
+            padding: 15px 25px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            border: none;
+        }
+
+.label-text { font-size: 13px; color: #a0a4ab; margin-bottom: 2px; }
+.main-text { font-size: 16px; font-weight: 500; color: #2c303a; }
+        
+.priority-high { color: #dc3545; font-weight: 700; font-size: 14px; }
+.priority-low { color: #198754; font-weight: 700; font-size: 14px; }
+.priority-medium { color: #f6c23e; font-weight: 700; font-size: 14px; }
+
+.status-badge {
+            background-color: #f1f3f5;
+            color: #6c757d;
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+.action-icons i {
+            font-size: 20px;
+            cursor: pointer;
+            margin-left: 15px;
+            color: #495057;
+        }
+        
+.action-icons i.text-danger { color: #e74a3b !important; }
+
+        /* Tùy chỉnh Form Add Task (Nửa dưới) */
+.form-container {
+            border: 1.5px solid #2855a4; /* Viền xanh đậm */
+            border-radius: 8px;
+            padding: 25px;
+            max-width: 800px;
+            margin: 30px auto 0;
+            background: white;
+            position: relative;
+        }
+
+.form-title { font-weight: 800; color: #1a1e46; font-size: 18px; }
+.close-btn { position: absolute; top: 15px; right: 20px; cursor: pointer; font-size: 20px; font-weight: bold; }
+        
+.custom-input {
+            border-radius: 8px;
+            border: 1px solid #e3e6f0;
+            padding: 10px 15px;
+            font-size: 14px;
+        }
+
+.priority-btn {
+            border-radius: 20px;
+            padding: 5px 25px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-right: 10px;
+            background: white;
+        }
+
+.btn-p-high { border: 1.5px solid #e74a3b; color: #e74a3b; }
+.btn-p-medium { border: 1.5px solid #f6c23e; color: #f6c23e; }
+.btn-p-low { background-color: #1cc88a; color: white; border: none; padding: 6.5px 26.5px; } /* Đổ màu nền xanh cho Low */
+
+.btn-submit-add {
+            background-color: #858796;
+            color: white;
+            border-radius: 8px;
+            padding: 8px 30px;
+            font-weight: 600;
+            border: none;
+}
