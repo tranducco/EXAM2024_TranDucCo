@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react'; 
-
-// Sửa lại tên prop nhận vào: đổi onCancelEdit thành onCloseForm
 function TodoForm({ onAddTodo, onUpdateTodo, editingTodo, onCloseForm }) {
     const [inputValue, setInputValue] = useState('');
     const [priority, setPriority] = useState('Low');

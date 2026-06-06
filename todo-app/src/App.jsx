@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; // Nhớ import thêm useEffect
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import initialData from './data.json';
 import TodoList from './components/TodoList';
