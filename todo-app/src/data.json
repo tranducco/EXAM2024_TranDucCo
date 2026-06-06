@@ -1,0 +1,7 @@
+[
+{ "id": 1, "task": "Tap Gym", "priority": "High", "completed": false },
+{ "id": 2, "task": "Hoc ReactJS", "priority": "Low", "completed": true },
+{ "id": 3, "task": "Di Cho", "priority": "Medium", "completed": false },
+{ "id": 4, "task": "Chạy Bo", "priority": "High", "completed": false },
+{ "id": 5, "task": "Dọn Nhà", "priority": "Low", "completed": true }
+]
