@@ -1,18 +1,29 @@
-// src/components/TodoForm.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; // Nhớ import useEffect
 
-function TodoForm({ onAddTodo }) {
-    // Quản lý trạng thái nội bộ của Form (Clean code hơn so với dùng document.getElementById)
+function TodoForm({ onAddTodo, onUpdateTodo, editingTodo, onCancelEdit }) {
     const [inputValue, setInputValue] = useState('');
     const [priority, setPriority] = useState('Low');
     const [error, setError] = useState('');
 
+    // USE EFFECT: Tự động chạy khi biến editingTodo thay đổi
+    useEffect(() => {
+        if (editingTodo) {
+            // Nếu có dữ liệu truyền vào -> Đổ dữ liệu lên Form
+            setInputValue(editingTodo.task);
+            setPriority(editingTodo.priority);
+            setError(''); // Xóa lỗi cũ
+        } else {
+            // Nếu null -> Trả Form về trống (chế độ Thêm mới)
+            setInputValue('');
+            setPriority('Low');
+        }
+    }, [editingTodo]);
+
     const handleSubmit = (e) => {
-        e.preventDefault(); // Ngăn chặn load lại trang khi submit form (Giống ảnh 3 của thầy)
+        e.preventDefault();
         
         const trimmedValue = inputValue.trim();
 
-        // Validate dữ liệu theo yêu cầu Câu 2
         if (!trimmedValue) {
             setError('Tên Task không được để trống!');
             return;
@@ -22,27 +33,44 @@ function TodoForm({ onAddTodo }) {
             return;
         }
 
-        // Tạo object newTodo
-        const newTodo = {
-            id: Date.now(),
-            task: trimmedValue,
-            priority: priority,
-            completed: false
-        };
-
-        // Gọi hàm từ component Cha truyền xuống để cập nhật state tổng
-        onAddTodo(newTodo);
-
-        // Reset form sau khi thêm thành công
-        setInputValue('');
-        setPriority('Low');
+        if (editingTodo) {
+            // NẾU ĐANG Ở CHẾ ĐỘ SỬA
+            const updatedTodo = {
+                ...editingTodo, // Giữ nguyên ID và trạng thái completed cũ
+                task: trimmedValue, // Ghi đè tên mới
+                priority: priority  // Ghi đè mức độ mới
+            };
+            onUpdateTodo(updatedTodo);
+        } else {
+            // NẾU ĐANG Ở CHẾ ĐỘ THÊM
+            const newTodo = {
+                id: Date.now(),
+                task: trimmedValue,
+                priority: priority,
+                completed: false
+            };
+            onAddTodo(newTodo);
+            
+            // Thêm xong thì xóa rỗng Form
+            setInputValue('');
+            setPriority('Low');
+        }
         setError('');
     };
 
     return (
         <div className="form-container p-4 border border-primary rounded bg-white position-relative">
-            <i className="bi bi-x-lg position-absolute cursor-pointer" style={{ top: '15px', right: '20px' }}></i>
-            <h4 className="fw-bold mb-4" style={{ color: '#1a1e46' }}>Add Task</h4>
+            {/* Nút X trên cùng góc phải: Bấm vào để hủy chế độ sửa */}
+            <i 
+                className="bi bi-x-lg position-absolute cursor-pointer" 
+                style={{ top: '15px', right: '20px', cursor: 'pointer' }}
+                onClick={onCancelEdit}
+            ></i>
+            
+            {/* Tiêu đề tự đổi chữ */}
+            <h4 className="fw-bold mb-4" style={{ color: '#1a1e46' }}>
+                {editingTodo ? "Edit Task" : "Add Task"}
+            </h4>
 
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
@@ -67,7 +95,10 @@ function TodoForm({ onAddTodo }) {
                 </div>
 
                 <div className="text-end">
-                    <button type="submit" className="btn btn-secondary px-4 rounded-3">Add</button>
+                    {/* Nút Submit tự đổi chữ */}
+                    <button type="submit" className="btn btn-secondary px-4 rounded-3">
+                        {editingTodo ? "Update" : "Add"}
+                    </button>
                 </div>
             </form>
         </div>
