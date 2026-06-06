@@ -71,16 +71,19 @@ function App() {
                 todos={todos} 
                 onDelete={handleDeleteTodo} 
                 onToggle={handleToggleStatus} 
-                onEdit={handleEditTodo}
+                onEdit={handleEditTodo} 
                 onOpenForm={handleOpenAddForm}
             />
             
-            <TodoForm 
-                onAddTodo={handleAddTodo} 
-                onUpdateTodo={handleUpdateTodo}
-                editingTodo={editingTodo}
-                onCloseForm={handleCloseForm}
-            />
+            {showForm && (
+                <TodoForm 
+                    onAddTodo={handleAddTodo} 
+                    onUpdateTodo={handleUpdateTodo}
+                    editingTodo={editingTodo}
+                    onCancelEdit={handleCancelEdit}
+                    onCloseForm={handleCloseForm}
+                />
+            )}
         </div>
     );
 }
