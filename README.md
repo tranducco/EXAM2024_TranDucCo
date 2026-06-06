@@ -7,7 +7,7 @@ Lớp: 64HTTT2
 Dự án ứng dụng Quản lý công việc (Task List) được xây dựng bằng ReactJS và Bootstrap. Đây là bài làm thực hành mô phỏng Đề thi môn Nền tảng phát triển Web.
 
 ##  Ảnh chụp màn hình (Screenshot)
-
+![Trang chủ](./screenshot/todo-app.png)
 
 ---
 
